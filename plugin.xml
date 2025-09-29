@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<idea-plugin>
+    <id>com.example.diffplugin</id>
+    <name>Unified Diff Plugin</name>
+    <vendor email="support@example.com" url="http://www.example.com">Example</vendor>
+
+    <description><![CDATA[
+    A plugin that provides unified diff view for files showing differences between the last commit and current content.
+    Features:
+    - Red highlighting for deleted code
+    - Green highlighting for new code
+    - Accept/Reject buttons for each diff block
+    ]]></description>
+
+    <depends>com.intellij.modules.platform</depends>
+    <depends>Git4Idea</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Startup activity to initialize document listeners -->
+        <postStartupActivity implementation="com.example.diffplugin.startup.DiffPluginStartupActivity"/>
+        
+        <!-- Action for manual diff toggle (optional) -->
+        <action id="ToggleInlineDiff" class="com.example.diffplugin.actions.ToggleInlineDiffAction" text="Toggle Inline Diff">
+            <add-to-group group-id="EditorPopupMenu" anchor="first"/>
+            <keyboard-shortcut keymap="$default" first-keystroke="ctrl alt D"/>
+        </action>
+        
+        <!-- Notification group for diff plugin -->
+        <notificationGroup id="DiffPlugin" displayType="BALLOON"/>
+    </extensions>
+
+    <actions>
+        <group id="DiffPluginGroup" text="Diff Plugin" description="Unified Diff Plugin Actions">
+            <add-to-group group-id="ToolsMenu" anchor="last"/>
+        </group>
+    </actions>
+
+</idea-plugin>
